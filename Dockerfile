@@ -1,27 +1,26 @@
-# Fase di build: usa un'immagine con Maven e OpenJDK
-FROM openjdk:17-jdk-slim AS build
-
-# Installa Maven
-RUN apt-get update && apt-get install -y maven
+# Fase di build
+FROM maven:3.8.6-openjdk-17-slim AS build
 
 # Imposta la cartella di lavoro
 WORKDIR /app
 
-# Copia il file pom.xml e scarica le dipendenze
-COPY pom.xml .
-RUN mvn dependency:go-offline
+# Copia il codice sorgente nel container
+COPY . .
 
-# Copia tutto il resto del codice sorgente
-COPY src /app/src
-
-# Esegui il build del progetto (compilando il .jar)
+# Esegui il build con Maven (senza test)
 RUN mvn clean package -DskipTests
 
-# Usa un'immagine base con solo OpenJDK per eseguire l'app
+# Fase finale: immagine per l'esecuzione
 FROM openjdk:17-jdk-slim
 
-# Copia il .jar dalla fase di build
-COPY --from=build /app/target/speseMensiliBE.jar /speseMensiliBE.jar
+# Imposta la cartella di lavoro per l'applicazione
+WORKDIR /
 
-# Imposta il comando di avvio dell'app
-CMD ["java", "-jar", "/speseMensiliBE.jar"]
+# Copia il file .jar dal container di build
+COPY --from=build /app/target/speseMensiliBE-0.0.1-SNAPSHOT.jar /speseMensiliBE.jar
+
+# Espone la porta su cui l'applicazione è in ascolto (modifica se necessario)
+EXPOSE 8080
+
+# Imposta il comando di avvio
+ENTRYPOINT ["java", "-jar", "/speseMensiliBE.jar"]
