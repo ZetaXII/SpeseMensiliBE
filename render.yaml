@@ -1,0 +1,6 @@
+services:
+  - type: web
+    name: speseMensiliBE
+    env: java
+    buildCommand: mvn clean package -DskipTests
+    startCommand: java -jar target/speseMensiliBE.jar
