@@ -1,5 +1,8 @@
-# Usa un'immagine base con Maven e OpenJDK preinstallati
-FROM maven:3.8.6-openjdk-17-slim AS build
+# Fase di build: usa un'immagine con Maven e OpenJDK
+FROM openjdk:17-jdk-slim AS build
+
+# Installa Maven
+RUN apt-get update && apt-get install -y maven
 
 # Imposta la cartella di lavoro
 WORKDIR /app
