@@ -8,8 +8,17 @@ public class TotaliDTO {
     private BigDecimal totaleUscite;
     private BigDecimal saldo;
 
-    // Getters e Setters
+    // Costruttore con parametri
+    public TotaliDTO(BigDecimal totaleEntrate, BigDecimal totaleUscite, BigDecimal saldo) {
+        this.totaleEntrate = totaleEntrate;
+        this.totaleUscite = totaleUscite;
+        this.saldo = saldo;
+    }
 
+    // Costruttore vuoto (necessario per framework come Spring)
+    public TotaliDTO() {}    
+    
+    // Getters e Setters
     public BigDecimal getTotaleEntrate() {
         return totaleEntrate;
     }

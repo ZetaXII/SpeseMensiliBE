@@ -13,6 +13,7 @@ public class AzioneDTO {
     private Integer anno;
     private BigDecimal entrata;
     private BigDecimal uscita;
+    private String user;
 
     // Getters and Setters
     public Long getId() {
@@ -86,4 +87,12 @@ public class AzioneDTO {
     public void setUscita(BigDecimal uscita) {
         this.uscita = uscita;
     }
+    
+    public String getUser() {
+        return user;
+    }
+
+    public void setUser(String user) {
+        this.user = user;
+    }    
 }

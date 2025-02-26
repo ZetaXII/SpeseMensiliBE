@@ -11,9 +11,9 @@ import com.zetaxii.speseMensili.entity.AzioneEntity;
 @Repository
 public interface AzioneRepository extends JpaRepository<AzioneEntity, Long>, JpaSpecificationExecutor<AzioneEntity> {
 
-	List<AzioneEntity> findByMeseAndAnnoOrderByNumeroGiornoDesc(String mese, Integer anno);
+    List<AzioneEntity> findByMeseAndAnnoAndUserOrderByNumeroGiornoDesc(String mese, Integer anno, String user);
 
-	List<AzioneEntity> findByMeseAndAnno(String mese, Integer anno);
+    List<AzioneEntity> findByMeseAndAnnoAndUser(String mese, Integer anno, String user);
 
-	List<AzioneEntity> findByAnno(Integer anno);
+    List<AzioneEntity> findByAnnoAndUser(Integer anno, String user);
 }

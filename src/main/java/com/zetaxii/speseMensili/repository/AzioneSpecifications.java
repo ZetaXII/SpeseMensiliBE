@@ -1,9 +1,7 @@
 package com.zetaxii.speseMensili.repository;
 
 import java.math.BigDecimal;
-
 import org.springframework.data.jpa.domain.Specification;
-
 import com.zetaxii.speseMensili.entity.AzioneEntity;
 
 public class AzioneSpecifications {
@@ -38,5 +36,9 @@ public class AzioneSpecifications {
 
     public static Specification<AzioneEntity> hasUscita(BigDecimal uscita) {
         return (root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("uscita"), uscita);
+    }
+    
+    public static Specification<AzioneEntity> hasUser(String user) {
+        return (root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("user"), user);
     }
 }

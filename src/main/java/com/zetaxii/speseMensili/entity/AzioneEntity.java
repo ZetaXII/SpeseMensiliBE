@@ -42,6 +42,9 @@ public class AzioneEntity {
     @Column(name = "uscita", nullable = true)
     private BigDecimal uscita;
 
+    @Column(name = "\"user\"", nullable=false)
+    private String user; // Aggiunto il campo user
+
     // Getters and Setters
     public Long getId() {
         return id;
@@ -113,6 +116,14 @@ public class AzioneEntity {
 
     public void setUscita(BigDecimal uscita) {
         this.uscita = uscita;
+    }
+
+    public String getUser() {
+        return user;
+    }
+
+    public void setUser(String user) {
+        this.user = user;
     }
 
     // Logica di validazione per entrata/uscita

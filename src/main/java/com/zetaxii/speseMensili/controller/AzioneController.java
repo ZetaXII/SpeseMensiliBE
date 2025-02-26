@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.zetaxii.speseMensili.dto.AzioneDTO;
@@ -25,66 +26,66 @@ public class AzioneController {
 	@Autowired
 	private AzioneService azioneService;
 
-	// GET: /api/azioni/getAll - Ottieni tutte le azioni
+	// GET: /api/azioni/getAll?user="nome" - Ottieni tutte le azioni
 	@GetMapping("/getAll")
-	public ResponseEntity<List<AzioneDTO>> getAllAzioni() {
-		List<AzioneDTO> azioni = azioneService.getAllAzioni();
+	public ResponseEntity<List<AzioneDTO>> getAllAzioni(@RequestParam String user) {
+		List<AzioneDTO> azioni = azioneService.getAllAzioni(user);
 		return new ResponseEntity<>(azioni, HttpStatus.OK);
 	}
 	
-	// GET: /api/azioni/getTotali - recupera tutti i totali (saldo attuale, guadagnati, spesi)
+	// GET: /api/azioni/getTotali?user="nome" - recupera tutti i totali (saldo attuale, guadagnati, spesi)
     @GetMapping("/getTotali")
-    public ResponseEntity<TotaliDTO> getTotali() {
-        TotaliDTO totali = azioneService.calcolaTotali();
+    public ResponseEntity<TotaliDTO> getTotali(@RequestParam String user) {
+        TotaliDTO totali = azioneService.calcolaTotali(user);
         return new ResponseEntity<>(totali, HttpStatus.OK);
     }	
 
-	// GET: /api/azioni/getByMeseAnno/{mese}/{anno} - filtra per mese e anno
+	// GET: /api/azioni/getByMeseAnno/{mese}/{anno}?user="nome" - filtra per mese e anno
 	@GetMapping("/getByMeseAnno/{mese}/{anno}")
-	public ResponseEntity<List<AzioneDTO>> getAzioniByMeseAnno(@PathVariable String mese, @PathVariable Integer anno) {
-		List<AzioneDTO> azioni = azioneService.getAzioniByMeseAnnoOrdinate(mese, anno);
+	public ResponseEntity<List<AzioneDTO>> getAzioniByMeseAnno(@PathVariable String mese, @PathVariable Integer anno, @RequestParam String user) {
+		List<AzioneDTO> azioni = azioneService.getAzioniByMeseAnnoOrdinate(mese, anno, user);
 		return new ResponseEntity<>(azioni, HttpStatus.OK);
 	}
 	
-	// GET: /api/azioni/getByAnno/{anno} - filtra per mese e anno
+	// GET: /api/azioni/getByAnno/{anno}?user="nome" - filtra per anno
 	@GetMapping("/getByAnno/{anno}")
-	public ResponseEntity<List<AzioneDTO>> getAzioniByMeseAnno(@PathVariable Integer anno) {
-		List<AzioneDTO> azioni = azioneService.getAzioniByAnnoOrdinate(anno);
+	public ResponseEntity<List<AzioneDTO>> getAzioniByAnno(@PathVariable Integer anno, @RequestParam String user) {
+		List<AzioneDTO> azioni = azioneService.getAzioniByAnnoOrdinate(anno, user);
 		return new ResponseEntity<>(azioni, HttpStatus.OK);
 	}	
 
-	// GET: /api/azioni/searchByFilter - Filtra per i campi inseriti
+	// GET: /api/azioni/searchByFilter?user="nome" - Filtra per i campi inseriti
 	@GetMapping("/searchByFilter")
-	public ResponseEntity<List<AzioneDTO>> searchByFilter(@RequestBody AzioneDTO azioneDTO) {
-	    List<AzioneDTO> azioni = azioneService.searchByFilter(azioneDTO);
+	public ResponseEntity<List<AzioneDTO>> searchByFilter(@RequestBody AzioneDTO azioneDTO, @RequestParam String user) {
+	    List<AzioneDTO> azioni = azioneService.searchByFilter(azioneDTO, user);
 	    return new ResponseEntity<>(azioni, HttpStatus.OK);
 	}
 
-	// GET: /api/azioni/get/{id} - Ottieni una singola azione per ID
+	// GET: /api/azioni/get/{id}?user="nome" - Ottieni una singola azione per ID
 	@GetMapping("/get/{id}")
-	public ResponseEntity<AzioneDTO> getAzioneById(@PathVariable Long id) {
-		AzioneDTO azioneDTO = azioneService.getAzioneById(id);
+	public ResponseEntity<AzioneDTO> getAzioneById(@PathVariable Long id, @RequestParam String user) {
+		AzioneDTO azioneDTO = azioneService.getAzioneById(id, user);
 		return new ResponseEntity<>(azioneDTO, HttpStatus.OK);
 	}
 
-	// POST: /api/azioni/create - Crea una nuova azione
+	// POST: /api/azioni/create?user="nome" - Crea una nuova azione
 	@PostMapping("/create")
-	public ResponseEntity<AzioneDTO> createAzione(@RequestBody AzioneDTO azioneDTO) {
-		AzioneDTO createdAzione = azioneService.createAzione(azioneDTO);
+	public ResponseEntity<AzioneDTO> createAzione(@RequestBody AzioneDTO azioneDTO, @RequestParam String user) {
+		AzioneDTO createdAzione = azioneService.createAzione(azioneDTO, user);
 		return new ResponseEntity<>(createdAzione, HttpStatus.CREATED);
 	}
 
-	// PUT: /api/azioni/update/{id} - Aggiorna una azione esistente
+	// PUT: /api/azioni/update/{id}?user="nome" - Aggiorna una azione esistente
 	@PutMapping("/update/{id}")
-	public ResponseEntity<AzioneDTO> updateAzione(@PathVariable Long id, @RequestBody AzioneDTO azioneDTO) {
-		AzioneDTO updatedAzione = azioneService.updateAzione(id, azioneDTO);
+	public ResponseEntity<AzioneDTO> updateAzione(@PathVariable Long id, @RequestBody AzioneDTO azioneDTO, @RequestParam String user) {
+		AzioneDTO updatedAzione = azioneService.updateAzione(id, azioneDTO, user);
 		return new ResponseEntity<>(updatedAzione, HttpStatus.OK);
 	}
 
-	// DELETE: /api/azioni/delete/{id} - Elimina una azione
+	// DELETE: /api/azioni/delete/{id}?user="nome" - Elimina una azione
 	@DeleteMapping("/delete/{id}")
-	public ResponseEntity<Void> deleteAzione(@PathVariable Long id) {
-		azioneService.deleteAzione(id);
+	public ResponseEntity<Void> deleteAzione(@PathVariable Long id, @RequestParam String user) {
+		azioneService.deleteAzione(id, user);
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
 }
