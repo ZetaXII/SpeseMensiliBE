@@ -16,4 +16,6 @@ public interface AzioneRepository extends JpaRepository<AzioneEntity, Long>, Jpa
     List<AzioneEntity> findByMeseAndAnnoAndUser(String mese, Integer anno, String user);
 
     List<AzioneEntity> findByAnnoAndUser(Integer anno, String user);
+    
+    List<AzioneEntity> findByUser(String user);
 }

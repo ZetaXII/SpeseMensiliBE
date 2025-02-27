@@ -26,7 +26,7 @@ public class AzioneService {
     private AzioneRepository azioneRepository;
 
     public List<AzioneDTO> getAllAzioni(String user) {
-        List<AzioneEntity> azioni = azioneRepository.findByAnnoAndUser(LocalDate.now().getYear(), user);
+        List<AzioneEntity> azioni = azioneRepository.findByUser(user);  // Rimuovi il filtro per anno
         return azioni.stream().map(this::convertToDTO).collect(Collectors.toList());
     }
 
@@ -35,7 +35,7 @@ public class AzioneService {
         BigDecimal totaleEntrate = BigDecimal.ZERO;
         BigDecimal totaleUscite = BigDecimal.ZERO;
 
-        List<AzioneEntity> azioni = azioneRepository.findByAnnoAndUser(LocalDate.now().getYear(), user);
+        List<AzioneEntity> azioni = azioneRepository.findByUser(user);
 
         for (AzioneEntity azione : azioni) {
             if (azione.getEntrata() != null) {
