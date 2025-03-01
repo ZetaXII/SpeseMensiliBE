@@ -88,4 +88,12 @@ public class AzioneController {
 		azioneService.deleteAzione(id, user);
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
+	
+	// PER FARE IL PING AL BACKEND E MANTENERLO ATTIVO
+	// GET: /api/azioni/ping
+    @GetMapping("/ping")
+    public ResponseEntity<Void> ping() {
+        return ResponseEntity.noContent().build(); // Restituisce solo 204 No Content
+    }
+	
 }
