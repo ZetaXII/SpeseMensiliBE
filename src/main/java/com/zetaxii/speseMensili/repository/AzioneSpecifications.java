@@ -6,9 +6,10 @@ import com.zetaxii.speseMensili.entity.AzioneEntity;
 
 public class AzioneSpecifications {
 
-    public static Specification<AzioneEntity> hasAzione(String azione) {
-        return (root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("azione"), azione);
-    }
+	public static Specification<AzioneEntity> hasAzione(String azione) {
+	    return (root, query, criteriaBuilder) -> 
+	        criteriaBuilder.like(criteriaBuilder.lower(root.get("azione")), "%" + azione.toLowerCase() + "%");
+	}
 
     public static Specification<AzioneEntity> hasCategoria(String categoria) {
         return (root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("categoria"), categoria);
