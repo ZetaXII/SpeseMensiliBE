@@ -54,8 +54,8 @@ public class AzioneController {
 		return new ResponseEntity<>(azioni, HttpStatus.OK);
 	}	
 
-	// GET: /api/azioni/searchByFilter?user="nome" - Filtra per i campi inseriti
-	@GetMapping("/searchByFilter")
+	// POST: /api/azioni/searchByFilter?user="nome" - Filtra per i campi inseriti
+	@PostMapping("/searchByFilter")
 	public ResponseEntity<List<AzioneDTO>> searchByFilter(@RequestBody AzioneDTO azioneDTO, @RequestParam String user) {
 	    List<AzioneDTO> azioni = azioneService.searchByFilter(azioneDTO, user);
 	    return new ResponseEntity<>(azioni, HttpStatus.OK);
